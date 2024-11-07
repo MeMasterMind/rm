@@ -12,6 +12,7 @@ export const FormStep = ({ currentStep, formData, handleInputChange }) => {
             onChange={handleInputChange}
             placeholder="Enter Product Name"
             className="w-full p-2 border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:ring focus:ring-blue-200"
+            required
           />
         );
       case 1:
@@ -22,6 +23,7 @@ export const FormStep = ({ currentStep, formData, handleInputChange }) => {
             onChange={handleInputChange}
             placeholder="Enter Product Description"
             className="w-full p-2 border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:ring focus:ring-blue-200"
+            required
           />
         );
       case 2:
@@ -33,6 +35,7 @@ export const FormStep = ({ currentStep, formData, handleInputChange }) => {
             onChange={handleInputChange}
             placeholder="Enter Product Price"
             className="w-full p-2 border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:ring focus:ring-blue-200"
+            required
           />
         );
       case 3:
@@ -44,6 +47,7 @@ export const FormStep = ({ currentStep, formData, handleInputChange }) => {
             onChange={handleInputChange}
             placeholder="Enter Shipping Info"
             className="w-full p-2 border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:ring focus:ring-blue-200"
+            required
           />
         );
       case 4:
@@ -55,6 +59,7 @@ export const FormStep = ({ currentStep, formData, handleInputChange }) => {
             onChange={handleInputChange}
             placeholder="Enter Payment Info"
             className="w-full p-2 border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:ring focus:ring-blue-200"
+            required
           />
         );
       default:
