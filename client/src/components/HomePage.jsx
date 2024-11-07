@@ -13,7 +13,7 @@ const HomePage = () => {
         }
         const data = await response.json();
         setProducts(data);
-        console.log(data)
+        console.log(data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -35,6 +35,12 @@ const HomePage = () => {
             <p className="text-gray-600">{product.description}</p>
             <p className="text-gray-600">{product.shipping}</p>
             <p className="text-green-600 font-bold mt-2">${product.price}</p>
+            <Link 
+              to={`/edit-product/${product._id}`} 
+              className="text-blue-500 hover:underline mt-4 inline-block"
+            >
+              Edit
+            </Link>
           </div>
         ))}
       </div>

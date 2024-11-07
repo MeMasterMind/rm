@@ -11,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create-product" element={<ProgressBar />} />
+          <Route path="/edit-product/:id" element={<ProgressBar />} /> 
         </Routes>
       </div>
     </Router>

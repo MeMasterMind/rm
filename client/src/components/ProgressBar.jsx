@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const steps = ['General Info', 'Catalog Info', 'Pricing', 'Shipping', 'Payment'];
 
@@ -50,10 +50,33 @@ const FormWrapper = () => {
     description: '',
     price: '',
     shipping: '',
-    payment: ''
+    payment: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (id) {
+        try {
+          const response = await fetch(`http://localhost:3001/api/products/${id}`);
+          if (response.ok) {
+            const productData = await response.json();
+            setFormData(productData);
+          } else {
+            console.error('Failed to fetch product data');
+          }
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handlePreviousStep = () => {
     if (currentStep > 0) {
@@ -82,8 +105,12 @@ const FormWrapper = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('http://localhost:3001/api/createProduct', {
-        method: 'POST',
+      const url = id
+        ? `http://localhost:3001/api/editProduct/${id}`
+        : 'http://localhost:3001/api/createProduct';
+
+      const response = await fetch(url, {
+        method: id ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -91,13 +118,13 @@ const FormWrapper = () => {
       });
 
       if (response.ok) {
-        console.log('Product created successfully');
-        navigate('/'); 
+        console.log(`Product ${id ? 'updated' : 'created'} successfully`);
+        navigate('/');
       } else {
-        console.error('Product creation failed');
+        console.error('Product operation failed');
       }
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -163,6 +190,11 @@ const FormWrapper = () => {
         return null;
     }
   };
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="p-4 space-y-4 max-w-xl mx-auto">
       <ProgressBar currentStep={currentStep} />
